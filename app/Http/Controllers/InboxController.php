@@ -34,7 +34,7 @@ class InboxController extends Controller
 
         $to_user_id = Auth::user()->id;
 
-        $inbox = inbox::select('inboxes.inbox_id','inboxes.from_user_id','inboxes.to_user_id','inboxes.subject','inboxes.message','inboxes.created_at','users.name','users.last_name')
+        $inbox = inbox::select('inboxes.inbox_id','inboxes.from_user_id','inboxes.to_user_id','inboxes.subject','inboxes.message','inboxes.created_at','inboxes.seen','users.name','users.last_name')
         ->where('to_user_id',$to_user_id)
         ->join('users','id','=','from_user_id')
         ->where('deletedTo',0)
@@ -150,8 +150,6 @@ class InboxController extends Controller
     }
 
 
-
-
     public function deleteInboxMailPermanently($inbox_id){
 
         $inbox= new inbox;
@@ -171,23 +169,16 @@ class InboxController extends Controller
         return redirect('/inbox');
     }
 
-    // public function deleteSentMailPermanently($inbox_id){
+    public function numberOfUnSeenMails(){
 
-    //     $inbox= new inbox;
-    //     $user_id = Auth::user()->id;
-    //     $inbox->where("inbox_id",$inbox_id)->where('from_user_id',$user_id)->delete();
-    //     return redirect('/sent');
-    // }
+        $user_id = Auth::user()->id;
+        $inbox = inbox::where('to_user_id',$user_id)->where('seen',false)->where('deletedTo',0)->count();
 
-    // public function deleteSentMailsPermanently(Request $request){
+        return $inbox;
+    }
 
-    //     $inbox= new inbox;
-    //     $from_user_id = Auth::user()->id;
-    //     $inbox_id = $request -> input('inbox_ids');
-    //     for($i = 0;$i<count($inbox_id);$i++){
-    //         $inbox->where("inbox_id",$inbox_id[$i])->where('from_user_id',$from_user_id)->delete();
-    //     return redirect('/sent');
-    // }
+
+
 
 
 

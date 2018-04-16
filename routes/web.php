@@ -22,10 +22,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home',function(){
-    return view('dashboard');
-});
-
+Route::get('/home','HomeController@index');
 Route::get('/inbox','HomeController@inbox');
 Route::get('/sent','HomeController@sent');
 Route::get('/deleted','HomeController@deleted');

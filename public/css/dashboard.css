@@ -280,3 +280,13 @@ a.dropdown-toggle::before {
     background-color: #f6f6dc;
     padding: 10px;
 }
+
+.badge {
+    color: #6d7fcc;
+    background-color: white;
+}
+
+#mailbox a:hover .badge{
+    color: white;
+    background-color: #7386D5;
+}

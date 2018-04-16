@@ -28,10 +28,10 @@
                 <li class="active">
                     <a href="/home"  aria-expanded="false"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;Dashboard</a>
                 </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;Mailbox</a>
+                <li id="mailbox">
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" ><i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;Mailbox&nbsp;&nbsp;@if($numberOfMessages>0)<span class="badge">{{$numberOfMessages}}</span>@endif</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li><a href="/inbox"><i class="fa fa-inbox"></i>&nbsp;&nbsp;&nbsp;Inbox</a></li>
+                        <li><a href="/inbox"><i class="fa fa-inbox"></i>&nbsp;&nbsp;&nbsp;Inbox&nbsp;&nbsp;@if($numberOfMessages>0)<span class="badge">{{$numberOfMessages}}</span>@endif</a></li>
                         <li><a href="/sent"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;&nbsp;Sent</a></li>
                         <li><a href="/deleted"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;Deleted</a></li>
                     </ul>

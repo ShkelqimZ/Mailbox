@@ -1,9 +1,9 @@
-@extends('layouts.website_layout')
+@extends('layouts.website_layout',['numberOfMessages'=>$numberOfMessages])
 
 @section('content')
 <div class="col-md-12 col-sm-12">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-3">
         <ul id="mail-folders">
           <li>Folders</li>
           <li><a href="/inbox" class="active"><i class="fa fa-inbox"></i>&nbsp;&nbsp;&nbsp;Inbox</a></li>
@@ -11,7 +11,7 @@
           <li><a href="/deleted"><i class="fa fa-trash"></i>&nbsp;&nbsp;&nbsp;Deleted</a></li>
         </ul>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-9">
       <div class="row">
         <div class="col-md-12">
           <div class="btns">
@@ -30,12 +30,21 @@
         </tr>
         <tbody>
           @foreach($inboxes as $inbox)
+          @if($inbox->seen == 0)
+          <tr style="background-color:#e0e6fc;">
+            <td><input type="checkbox" name="inbox_ids[]" ng-click="fillArrayWithMailsToDelete(<?php echo $inbox->inbox_id; ?>)"></td>
+            <td style="padding:0;"><a href="/inbox/{{$inbox->inbox_id}}" style="display:block;padding:8px;">{{$inbox->name}} {{$inbox->last_name}}</a></td>
+            <td style="padding:0;"><a href="/inbox/{{$inbox->inbox_id}}" style="display:block;padding:8px;">{{$inbox->subject}}</a></td>
+            <td style="padding:0;"><a href="/inbox/{{$inbox->inbox_id}}" style="display:block;padding:8px;">{{$inbox->created_at->diffForHumans()}}</a></td>
+          </tr>
+          @else
           <tr>
             <td><input type="checkbox" name="inbox_ids[]" ng-click="fillArrayWithMailsToDelete(<?php echo $inbox->inbox_id; ?>)"></td>
             <td style="padding:0;"><a href="/inbox/{{$inbox->inbox_id}}" style="display:block;padding:8px;">{{$inbox->name}} {{$inbox->last_name}}</a></td>
             <td style="padding:0;"><a href="/inbox/{{$inbox->inbox_id}}" style="display:block;padding:8px;">{{$inbox->subject}}</a></td>
             <td style="padding:0;"><a href="/inbox/{{$inbox->inbox_id}}" style="display:block;padding:8px;">{{$inbox->created_at->diffForHumans()}}</a></td>
           </tr>
+          @endif
           @endforeach
         </tbody>
       </table>
